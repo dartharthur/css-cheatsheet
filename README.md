@@ -10,6 +10,9 @@
 1. [Height and Width](#height-and-width)
 1. [Display Property](#display-property)
 1. [Pseudo-classes and Pseudo-elements](#pseudo-classes-and-pseudo-elements)
+1. [Classes and IDs](#classes-and-ids)
+1. [!important](#!important)
+1. [float](#float)
 
 ## Basics
 
@@ -56,14 +59,6 @@ See [chrome://settings/fonts](chrome://settings/fonts) for an example.
 Sometimes you want a specific font that a browser doesn't have installed.
 
 Can use Google Fonts for this: [https://fonts.google.com/](https://fonts.google.com/)
-
-**IDs:**
-
-Not just used for styling. If ID name included in url after a hash, browser will jump to that ID in the html.
-
-**Classes:**
-
-CSS is case insensitive. Recommended to use kebab-case when naming CSS classes / IDs.
 
 ## CSS Specificity & Inheritance
 
@@ -272,3 +267,46 @@ Note that if you want to hide an element but you want to keep its place (i.e. ot
 Pseudoclasses (:class name) - define the style of a _**special state**_ of an element.
 
 Pseudoelements (::element name) - define the style of a _**special part**_ of an element.
+
+## Classes and IDs
+
+[back to top](#table-of-contents)
+
+### IDs
+
+Only used once per page. Use it to identify elements that there will only be a single instance of on a page. Also have non-CSS meaning (e.g. on-page link).
+
+Using an ID just for a style is not recommended. Use if available anyways i.e. it semantically makes sense to use an ID.
+
+### Classes
+
+CSS is case insensitive. Recommended to use kebab-case when naming CSS classes / IDs.
+
+Can use multiple classes on one element. Order in which you set classes in HTML doesn't matter. Order in which rules are defined in CSS determines what rules get applied.
+
+Advantages:
+
+- Re-usable
+- Allow you to "mark" and name things for styling purposes only
+
+Rarely wrong to use classes for styling. It's the most-used selector type.
+
+Only use tag selector for generic rules that you really want to apply to all of one type of element.
+
+## !important
+
+[back to top](#table-of-contents)
+
+Overrides specificity and all other selectors.
+
+In general: **don't use !important**. Better to make use of specificity and rules.
+
+## float
+
+This is the old school way of positioning elements on a page.
+
+Not used anymore in this way as it messes with the document flow and leads to hacky solutions to fix the flow.
+
+Modern tools for positioning elements on page include Flexbox and CSS Grid.
+
+That said, float is still useful for positioning / floating text around an image.
