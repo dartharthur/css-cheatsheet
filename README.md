@@ -13,6 +13,7 @@
 1. [Classes and IDs](#classes-and-ids)
 1. [!important](#!important)
 1. [float](#float)
+1. [Position Property](#position-property)
 
 ## Basics
 
@@ -303,6 +304,8 @@ In general: **don't use !important**. Better to make use of specificity and rule
 
 ## float
 
+[back to top](#table-of-contents)
+
 This is the old school way of positioning elements on a page.
 
 Not used anymore in this way as it messes with the document flow and leads to hacky solutions to fix the flow.
@@ -310,3 +313,59 @@ Not used anymore in this way as it messes with the document flow and leads to ha
 Modern tools for positioning elements on page include Flexbox and CSS Grid.
 
 That said, float is still useful for positioning / floating text around an image.
+
+## Position Property
+
+[back to top](#table-of-contents)
+
+Position property value defaults to `static` which keeps elements in the document flow.
+
+Other values are:
+
+- absolute
+- relative
+- fixed
+- sticky<sup>\*</sup> (experimental feature currently)
+
+Can tell element to move in four different directions:
+
+- top
+- right
+- bottom
+- left
+
+These properties refer to the position in the document flow relative to the positioning context.
+
+Tips & Tricks:
+
+- Adding a fixed navigation bar is usually a good practice.
+  - As soon as you add margin to html or body element, whichever is the parent of the navigation bar, need to add top and left properties to ensure nav bar fits correctly into top of page.
+- Adding a `z-index` to elements that don't have a position property applied (something other than `static`), has no effect.
+- If you want to prevent content from accidentally being positioned outside of a parent / ancestor container, you can add the `overflow: hidden` property to the parent / ancestor.
+  - Note that if trying to apply this property to the `body` element then you must also apply it to the `html` element because the default CSS behavior is to pass the property from `body` to `html`. Adding it in both places gives the desired behavior.
+- When adding a position property other than `static`, each element gets its own stacking context. For elements **inside** an element (child elements), the `z-index` will only have an impact on the child elements **inside** the parent element.
+
+### fixed
+
+Removes element from document flow. Element width will default to width of content. Behavior changes from block level element to inline-block level. The viewport / window, not the html element, becomes the positioning context i.e. the positioning of the element is relative to only the viewport. This type of positioning can be applied to both block level and inline elements.
+
+TL;DR - Positioning context is always the viewport.
+
+## absolute
+
+"Removes element from document flow. It is positioned relative to it's closest positioned ancestor, if any; otherwise, it is placed relative to the initial containing block (most often this is the content area of an element's nearest block-level ancestor)." - [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/position)
+
+TL;DR - Positioning context depends.
+
+- If you **don't have** any ancestors with a positioning property applied, then the positioning context is the `html` element.
+- If you **have** ancestors with a positioning property applied, then the absolutely positioned element will be positioned in relation to the closest ancestor that has a position property applied.
+
+## relative
+
+Element is positioned according to normal document flow. If want to set an absolute position on an element, good idea to set a relative position on an ancestor element. This will allow positioning of the child element relative to the ancestor.
+
+Setting top, left, right, or bottom will move the element relative to **itself** i.e. the positioning context is the element **itself**.
+
+## sticky
+
+A hybrid of relative and fixed. Fixed relative to the viewport (depending on top, bottom, left, right value supplied) until the parent container is out of view.
