@@ -13,7 +13,8 @@
 1. [Classes and IDs](#classes-and-ids)
 1. [!important](#!important)
 1. [float](#float)
-1. [Position Property](#position-property)
+1. [Positioning](#positioning)
+1. [Stacking Context](#stacking-context)
 
 ## Basics
 
@@ -314,9 +315,13 @@ Modern tools for positioning elements on page include Flexbox and CSS Grid.
 
 That said, float is still useful for positioning / floating text around an image.
 
-## Position Property
+## Positioning
 
 [back to top](#table-of-contents)
+
+Positioning theory: [https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Positioning](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Positioning)
+
+Position property reference: [https://developer.mozilla.org/en-US/docs/Web/CSS/position](https://developer.mozilla.org/en-US/docs/Web/CSS/position)
 
 Position property value defaults to `static` which keeps elements in the document flow.
 
@@ -351,7 +356,7 @@ Removes element from document flow. Element width will default to width of conte
 
 TL;DR - Positioning context is always the viewport.
 
-## absolute
+### absolute
 
 "Removes element from document flow. It is positioned relative to it's closest positioned ancestor, if any; otherwise, it is placed relative to the initial containing block (most often this is the content area of an element's nearest block-level ancestor)." - [MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/position)
 
@@ -360,12 +365,24 @@ TL;DR - Positioning context depends.
 - If you **don't have** any ancestors with a positioning property applied, then the positioning context is the `html` element.
 - If you **have** ancestors with a positioning property applied, then the absolutely positioned element will be positioned in relation to the closest ancestor that has a position property applied.
 
-## relative
+### relative
 
 Element is positioned according to normal document flow. If want to set an absolute position on an element, good idea to set a relative position on an ancestor element. This will allow positioning of the child element relative to the ancestor.
 
 Setting top, left, right, or bottom will move the element relative to **itself** i.e. the positioning context is the element **itself**.
 
-## sticky
+### sticky
 
 A hybrid of relative and fixed. Fixed relative to the viewport (depending on top, bottom, left, right value supplied) until the parent container is out of view.
+
+## Stacking Context
+
+[back to top](#table-of-contents)
+
+Reference: [https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context)
+
+When you have two elements with the same `z-index` in the same stacking context, the element that comes later gets stacked on top.
+
+Note that position fixed automatically creates a new stacking context.
+
+A new stacking context is created for elements set to position relative or absolute when a `z-index` is specified/applied to that element. Otherwise it remains in the enclosing stacking context.
