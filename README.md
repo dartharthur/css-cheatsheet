@@ -15,6 +15,7 @@
 1. [float](#float)
 1. [Positioning](#positioning)
 1. [Stacking Context](#stacking-context)
+1. [Background Images](#background-images)
 
 ## Basics
 
@@ -386,3 +387,50 @@ When you have two elements with the same `z-index` in the same stacking context,
 Note that position fixed automatically creates a new stacking context.
 
 A new stacking context is created for elements set to position relative or absolute when a `z-index` is specified/applied to that element. Otherwise it remains in the enclosing stacking context.
+
+## Background Images
+
+[back to top](#table-of-contents)
+
+- background --> background-image (shorthand default)
+- `background-size: cover` --> ensures image always fills container, may crop image, maintains aspect-ratio
+- `background-size: contain` --> ensures entire image fits container, doesn't crop, may be white space
+- `background-position` -- _good to understand_
+  - set initial position, relative to background position layer (set by `background-origin`)
+  - default is `background-position: 50% 50%` which effectively centers the image
+  - ex: `background-position: left 10% bottom 20%`
+    - this would ensure that only 20% is cropped from the bottom of the image and 80% is cropped from the top
+- `background-origin`
+  - default is `padding-box`, not `content-box` or `border-box`
+- `background-attachment` not used often
+
+```css
+/* shorthand demo */
+#overview {
+  background-image: url("freedom.jpg");
+  background-size: cover;
+  background-position: left 10% bottom 20%;
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  background-clip: border-box;
+}
+
+#overview {
+  background: url("freedom.jpg") left 10% bottom 20%/cover no-repeat border-box;
+}
+```
+
+- note that setting width and height on element (the container) that CONTAINS an `img` tag doesn't do anything if the container is an `inline` level element because the default behavior is for the `img` tag to take up as much width and height as the source image
+  - setting height to 100% on `img` also doesn't work if container is `inline` element, uses original `img` height
+  - if `block` level element, setting percentage or height works
+
+best practices:
+- if have an actual background image, fine to put in a `div` and set as `background-image`
+- if have an image that belongs in document flow, best to use an `img` tag, better for accessibility
+- ensure the container of an `img` is `inline-block` or `block` level so that you can control the width and/or height of an `img`
+
+tips:
+- if container is `inline-block` and you give it a `box-shadow`, there will be white space between `img` and bottom of container
+  - can solve by either:
+    - adding `vertical-align: top` to `img` class
+    - making container `block` instead of `inline-block`
